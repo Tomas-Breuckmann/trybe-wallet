@@ -24,7 +24,6 @@ class Login extends React.Component {
     event.preventDefault();
     const { email } = this.state;
     const { sendMailToState } = this.props;
-    console.log('estou no submit');
     sendMailToState(email);
     const { history } = this.props;
     history.push('/carteira');
