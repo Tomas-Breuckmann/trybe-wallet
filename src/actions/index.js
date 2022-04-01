@@ -25,7 +25,6 @@ export function fetchAPI() {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data1 = await response.json();
       const data = Object.keys(data1).filter((sigla) => sigla !== 'USDT');
-      console.log(data);
       dispatch(receiveAPISuccess(data));
     } catch (error) {
       dispatch(receiveAPIFailure(error));
