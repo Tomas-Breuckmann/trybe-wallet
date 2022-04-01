@@ -3,8 +3,11 @@ export const SALVA_EMAIL = 'SALVA_EMAIL';
 export const REQUEST_API = 'REQUEST_API';
 export const RECEIVE_API_SUCCESS = 'RECEIVE_API_SUCCESS';
 export const RECEIVE_API_FAILURE = 'RECEIVE_API_FAILURE';
+export const SEND_LIST_EXPENSIVES = 'SEND_LIST_EXPENSIVES';
 
 export const actionEmail = (email) => ({ type: SALVA_EMAIL, email });
+
+export const actionListExpensives = (list) => ({ type: SEND_LIST_EXPENSIVES, list });
 
 export const requestAPI = () => ({ type: REQUEST_API });
 

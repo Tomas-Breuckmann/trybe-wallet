@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchAPI } from '../actions';
+import { fetchAPI, actionListExpensives } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -13,6 +13,7 @@ class Wallet extends React.Component {
       moedaExpenses: 'USD',
       pagamentoExpenses: 'Dinheiro',
       categoriaExpenses: 'Alimentação',
+      listaExpenses: [],
     };
   }
 
@@ -28,11 +29,52 @@ class Wallet extends React.Component {
     });
   };
 
+  handleSubmit = async () => {
+    const { valueExpenses, descriptionExpenses, moedaExpenses,
+      pagamentoExpenses, categoriaExpenses, listaExpenses } = this.state;
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    const newExpense = {
+      id: listaExpenses.length,
+      value: valueExpenses,
+      currency: moedaExpenses,
+      method: pagamentoExpenses,
+      tag: categoriaExpenses,
+      description: descriptionExpenses,
+      exchangeRates: data,
+    };
+    this.setState({
+      listaExpenses: [...listaExpenses, newExpense],
+    }, this.enviaList);
+  }
+
+  enviaList = async () => {
+    const { listaExpenses } = this.state;
+    const { sendExpensesListToState } = this.props;
+    sendExpensesListToState(listaExpenses);
+    this.setState({
+      valueExpenses: 0,
+    });
+    // console.log(listaExpenses);
+    const valores = listaExpenses.map((despesa) => {
+      // console.log(Object.entries(despesa.exchangeRates));
+      const retorno = Object.entries(despesa.exchangeRates)
+        .filter((item) => item[0] === despesa.currency);
+      // console.log('retorno filter', retorno[0][1].ask);
+      // return Number(despesa.value);
+      return Number(retorno[0][1].ask) * Number(despesa.value);
+    });
+    // console.log('retorno do map', valores);
+    const somaExpenses = valores.reduce((soma, numero) => soma + numero).toFixed(2);
+    // console.log(somaExpenses);
+    this.setState({
+      totalDespesas: somaExpenses,
+    });
+  }
+
   render() {
     const { userEmail, currencies } = this.props;
-    const { totalDespesas, valueExpenses, descriptionExpenses, moedaExpenses,
-      pagamentoExpenses, categoriaExpenses } = this.state;
-    console.log(moedaExpenses, pagamentoExpenses, categoriaExpenses);
+    const { totalDespesas, valueExpenses, descriptionExpenses } = this.state;
     return (
       <div>
         <header>
@@ -113,6 +155,13 @@ class Wallet extends React.Component {
               <option key="Saude" value="Saude">Saúde</option>
             </select>
           </label>
+          <button
+            type="button"
+            onClick={ this.handleSubmit }
+            // disabled={ disableButton }
+          >
+            Adicionar despesa
+          </button>
         </main>
       </div>
     );
@@ -126,6 +175,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(fetchAPI()),
+  sendExpensesListToState: (list) => dispatch(actionListExpensives(list)),
 });
 
 Wallet.propTypes = {
