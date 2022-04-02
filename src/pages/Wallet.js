@@ -165,6 +165,7 @@ class Wallet extends React.Component {
           </button>
         </main>
         <div>
+          {/* <Table listaExpenses={ listaExpenses } /> */}
           <Table />
         </div>
       </div>
