@@ -1,0 +1,32 @@
+.header {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.wallet {
+  align-items: flex-end;
+  background-color: var(--main-color);
+  color: black;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  padding: 20px 10px;
+}
+
+.wallet label {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.wallet select , .wallet input {
+  padding: 5px 0;
+}
+
+.wallet button {
+  padding: 5px 15px;
+}

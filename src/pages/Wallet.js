@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { fetchAPI, actionListExpensives } from '../actions';
 import Table from '../components/Table';
+import style from './Wallet.module.css';
 
 class Wallet extends React.Component {
   constructor() {
@@ -78,18 +80,18 @@ class Wallet extends React.Component {
     const { totalDespesas, valueExpenses, descriptionExpenses } = this.state;
     return (
       <div>
-        <header>
+        <header className={ style.header }>
           <p data-testid="email-field">
-            { userEmail }
+            Logado como: { userEmail }
           </p>
           <p data-testid="total-field">
-            { totalDespesas }
+            Total das despesas: { totalDespesas }
           </p>
           <p data-testid="header-currency-field">
-            BRL
+            Moeda utilizada: BRL
           </p>
         </header>
-        <main>
+        <main className={ style.wallet }>
           <label htmlFor="valueInput">
             Valor:
             <input
@@ -157,6 +159,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           <button
+            name="botao"
             type="button"
             onClick={ this.handleSubmit }
             // disabled={ disableButton }
@@ -165,7 +168,6 @@ class Wallet extends React.Component {
           </button>
         </main>
         <div>
-          {/* <Table listaExpenses={ listaExpenses } /> */}
           <Table />
         </div>
       </div>

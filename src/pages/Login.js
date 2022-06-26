@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actionEmail } from '../actions';
+import style from './Login.module.css';
 
 class Login extends React.Component {
   constructor() {
@@ -43,14 +44,15 @@ class Login extends React.Component {
   render() {
     const { email, password, disableButton } = this.state;
     return (
-      <div>
-        <form>
+      <div className={ style.container }>
+        <form className={ style.wrapper }>
+          <h2>Trybe Wallet Login</h2>
           <label htmlFor="emailInput">
             Email:
             <input
               data-testid="email-input"
               id="emailInput"
-              type="email"
+              type="text"
               name="email"
               value={ email }
               placeholder="seuemail@aqui.com"
@@ -70,6 +72,7 @@ class Login extends React.Component {
             />
           </label>
           <button
+            className="button-login"
             type="button"
             onClick={ this.handleSubmit }
             disabled={ disableButton }

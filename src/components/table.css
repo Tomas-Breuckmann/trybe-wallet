@@ -1,0 +1,9 @@
+/* stylelint-disable indentation */
+
+/* stylelint-disable selector-list-comma-space-before */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+ }

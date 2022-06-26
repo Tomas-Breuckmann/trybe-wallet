@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import style from './Table.module.css';
 
 class Table extends React.Component {
   render() {
@@ -32,10 +33,8 @@ class Table extends React.Component {
     // preciso de um array da forma [description, tag, method, value, currency name,
     // ask, valor em real, 'Real']
     return (
-      <div>
-        <h1>Table</h1>
+      <div className={ style.container }>
         <table>
-          <caption>Our products</caption>
           <thead>
             <tr>
               <th>Descrição</th>
@@ -60,6 +59,13 @@ class Table extends React.Component {
                 <td>{expense.ask}</td>
                 <td>{expense.totalValue}</td>
                 <td>{expense.real}</td>
+                <td>
+                  <button
+                    type="button"
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
